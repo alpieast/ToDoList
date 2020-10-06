@@ -8,9 +8,9 @@ import AddTodo from './components/addTodo'
 
 export default function App() {
   const [todos, setTodos] = useState([
-    {text: 'react ogren', key: '1'},
-    {text: 'pratik yap', key: '2'},
-    {text: 'uygulamaya gec', key: '3'}
+    {text: 'Learn React Native', key: '1'},
+    {text: 'Make Practice', key: '2'},
+    {text: 'Go Forward!', key: '3'}
   ]);
 
   const pressHandler = (key) => {
@@ -19,11 +19,20 @@ export default function App() {
     })
   }
 
+  const submitHandler = (text) => {
+    setTodos((prevTodos) =>{
+      return [
+        {text: text, key : Math.random().toString() },
+        ...prevTodos
+      ];
+    } )
+  }
+
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.content}>
-        <AddTodo />
+        <AddTodo submitHandler={submitHandler}/>
         <View style={styles.list}>
           <FlatList
             data={todos}
@@ -44,9 +53,11 @@ const styles = StyleSheet.create({
     
   },
   content: {
-    padding: 40
+    padding: 40,
+    flex: 1
   },
   list: {
-    marginTop: 20
+    marginTop: 20,
+    flex:1 
   }
 });
